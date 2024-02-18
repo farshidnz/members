@@ -1,0 +1,1826 @@
+swagger: "2.0"
+info:
+  description: "The cashrewards member service Apis"
+  version: "1.0.0"
+  title: "Member Service Apis"
+  termsOfService: "https://www.cashrewards.com.au/terms-and-conditions"
+  license:
+    name: "Powered by Cashrewards"
+    url: "https://www.cashrewards.com.au"
+host: "0vhy3n7emh.execute-api.ap-southeast-2.amazonaws.com"
+basePath: "/dev/api"
+schemes:
+- "https"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /member:
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Get member information"
+      description: "Returns current authenticated member information"
+      operationId: "getMember"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Member"
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+  
+  #Update member details
+    patch:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Update member details"
+      description: "Update member details"
+      operationId: "updateMemberDetails"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Member details request"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateMemberDetailsRequest"
+
+      responses:
+        "200":
+          description: "Member details has been updated"
+          schema:
+            $ref: "#/definitions/UpdateMemberDetails200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            DATE_OF_BIRTH indicates that the date of birth provided is invalid
+            GENDER indicates that the gender is invalid
+            POSTCODE indicates that the postcode is invalid
+            MOBILE_OTP indicates that the mobile otp is invalid
+          schema:
+            $ref: "#/definitions/UpdateMemberDetails400"
+      
+  # Update mobile api
+  /member/mobile:
+    patch:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Update mobile"
+      description: "Update mobile with otp"
+      operationId: "updateMobile"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Update mobile number request"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateMobileNumberRequest"
+        
+      responses:
+        "200":
+          description: "Mobile has been updated"
+          schema:
+            $ref: "#/definitions/UpdateMobile200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_MOBILE indicates that the mobile provided is invalid
+            INVALID_MOBILE_OTP indicates that the opt code is invalid
+          schema:
+            $ref: "#/definitions/UpdateMobile400"
+  
+  # Update email api
+  /member/email:
+    patch:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Update email"
+      description: "Update email with otp"
+      operationId: "updateEmail"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Update email request"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateEmailRequest"
+      responses:
+        "200":
+          description: "Email has been updated"
+          schema:
+            $ref: "#/definitions/UpdateEmail200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_EMAIL indicates that the email provided is invalid
+            INVALID_MOBILE_OTP indicates that the opt code is invalid
+          schema:
+            $ref: "#/definitions/UpdateEmail400"
+            
+  # Get transactions api
+  /member/transactions:
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Get transactions"
+      description: "Get transactions"
+      operationId: "getTransactions"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "searchText"
+          in: query
+          description: "Search text for transaction name"
+          required: false
+          type: string
+        - name: "dateFrom"
+          in: query
+          description: "Date from of sale date"
+          type: string
+          required: false
+        - name: "dateTo"
+          in: query
+          description: "Date to of sale date"
+          type: string
+          required: false
+        - name: "limit"
+          in: query
+          description: "Limit records"
+          type: integer
+          required: false
+          default: 20
+        - name: "offset"
+          in: query
+          description: "Skip records, we'll get record starting at index that's offset value"
+          type: integer
+          required: false
+          default: 0
+        - name: "orderBy"
+          in: query
+          description: "Field name is ordered by"
+          type: string
+          required: false
+          items: 
+            type: string
+            enum:
+              - "Date"
+              - "Name"
+              - "Amount"
+              - "Status"
+          default: "Date"
+        - name: "sortDirection"
+          in: query
+          description: "Sort direction Asc/Desc"
+          type: string
+          required: false
+          items: 
+            type: string
+            enum:
+              - "Desc"
+              - "Asc"
+          default: "Desc"
+      responses:
+        "200":
+          description: "Get transactions successful"
+          schema:
+            $ref: "#/definitions/GetTransactions200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_LIMIT indicates that the "limit" query param provided is invalid
+            INVALID_OFFSET indicates that the "offset" query param provided is invalid
+            INVALID_DATE_FROM indicates that the "dateFrom" query param provided is invalid
+            INVALID_DATE_TO indicates that the "dateTo" query param provided is invalid
+            INVALID_ORDER_BY indicates that the "orderBy" query param provided is invalid
+            INVALID_SORT_DIRECTION indicates that the "sortDirection" query param provided is invalid
+          schema:
+            $ref: "#/definitions/GetTransactions400"
+  
+  # Get transactions count api
+  /member/transactions/count:
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Get transactions count"
+      description: "Get transactions count"
+      operationId: "getTransactionsCount"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "searchText"
+          in: query
+          description: "Search text for transaction name"
+          required: false
+          type: string
+        - name: "dateFrom"
+          in: query
+          description: "Date from of sale date"
+          type: string
+          required: false
+        - name: "dateTo"
+          in: query
+          description: "Date to of sale date"
+          type: string
+          required: false
+      responses:
+        "200":
+          description: "Get transactions count successful"
+          schema:
+            $ref: "#/definitions/GetTransactionsCount200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_DATE_FROM indicates that the "dateFrom" query param provided is invalid
+            INVALID_DATE_TO indicates that the "dateTo" query param provided is invalid
+          schema:
+            $ref: "#/definitions/GetTransactionsCount400"
+
+  /member/bank:
+    # Update bank api
+    post:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Update member bank account"
+      description: "Update member bank account"
+      operationId: "updateBank"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Member bank account request"
+          required: true
+          schema:
+            $ref: "#/definitions/MemberBankAccountRequest"
+      responses:
+        "200":
+          description: "Member bank account has been updated"
+          schema:
+            $ref: "#/definitions/UpdateBankAccount200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_ACCOUNT_NUMBER indicates that the account number provided is invalid
+            INVALID_ACCOUNT_NAME indicates that the account name provided is invalid
+            INVALID_BSB indicates that the bsb provided is invalid
+            INVALID_MOBILE_OTP indicates that the mobile otp provided is incorrect
+            DUPLICATED indicates that the account number and bsb already use by another account
+          schema:
+            $ref: "#/definitions/UpdateBankAccount400"
+    # Get bank api
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Get member bank account"
+      description: "Get member bank account"
+      operationId: "getBank"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Get member bank account successful"
+          schema:
+            $ref: "#/definitions/GetBankAccount200"
+        "400":
+          description: |
+            NOT_FOUND indicates that the bank account is not found
+          schema:
+            $ref: "#/definitions/GetBankAccount400"
+    # Disconnect bank api
+    delete: 
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Disconnect member bank account"
+      description: "Disconnect member bank account"
+      operationId: "disconnectBank"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Disconnect member bank account successful"
+          schema:
+            $ref: "#/definitions/DisconnectBankAccount200"
+        "400":
+          description: |
+            NOT_FOUND indicates that the bank account is not found
+          schema:
+            $ref: "#/definitions/DisconnectBankAccount400"
+
+  /member/marketing-ref:
+    # Update member subscribe newsletters api
+    patch:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Update member subscribe newsletters"
+      description: "Update member subscribe newsletters"
+      operationId: "updateMarketingRef"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Member subscribe newsletters request"
+          required: true
+          schema:
+            $ref: "#/definitions/MemberSubscribeNewslettersRequest"
+      responses:
+        "200":
+          description: "Subscribe newsletters has been updated"
+          schema:
+            $ref: "#/definitions/UpdateMemberSubscribeNewsletters200"
+    
+    # Get member subscribe newsletters api
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Get member subscribe newsletters"
+      description: "Get member subscribe newsletters"
+      operationId: "getMarketingRef"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Get subscribe newsletters successful"
+          schema:
+            $ref: "#/definitions/GetMemberSubscribeNewsletters200"
+            
+  /member/otp:
+    # Send otp api
+    post:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Send mobile otp"
+      description: "Send mobile otp"
+      operationId: "sendOtp"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Send mobile otp successful"
+          schema:
+            $ref: "#/definitions/SendMobileOtp200"
+  
+  /member/click-history:
+    # Get transactions api
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Get click-history"
+      description: "Get click-history"
+      operationId: "getClickHistory"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "searchText"
+          in: query
+          description: "Search text for store"
+          required: false
+          type: string
+        - name: "dateFrom"
+          in: query
+          description: "Date from of date"
+          type: string
+          required: false
+        - name: "dateTo"
+          in: query
+          description: "Date to of date"
+          type: string
+          required: false
+        - name: "limit"
+          in: query
+          description: "Limit records"
+          type: integer
+          required: false
+          default: 20
+        - name: "offset"
+          in: query
+          description: "Skip records, we'll get record starting at index that's offset value"
+          type: integer
+          required: false
+          default: 0
+        - name: "orderBy"
+          in: query
+          description: "Field name is ordered by"
+          type: string
+          required: false
+          default: "Date"
+        - name: "sortDirection"
+          in: query
+          description: "Sort direction Asc/Desc"
+          type: string
+          required: false
+          items:
+            type: string
+            enum:
+              - "Desc"
+              - "Asc"
+          default: "Desc"
+      responses:
+        "200":
+          description: "Get member click history successful"
+          schema:
+            $ref: "#/definitions/GetClickHistory200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_LIMIT indicates that the "limit" query param provided is invalid
+            INVALID_OFFSET indicates that the "offset" query param provided is invalid
+            INVALID_DATE_FROM indicates that the "dateFrom" query param provided is invalid
+            INVALID_DATE_TO indicates that the "dateTo" query param provided is invalid
+            INVALID_ORDER_BY indicates that the "orderBy" query param provided is invalid
+            INVALID_SORT_DIRECTION indicates that the "sortDirection" query param provided is invalid
+          schema:
+            $ref: "#/definitions/GetClickHistory400"
+
+  # Get transactions count api
+  /member/click-history/count:
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Get click history count"
+      description: "Get click history count"
+      operationId: "getClickHistoryCount"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "searchText"
+          in: query
+          description: "Search text for store"
+          required: false
+          type: string
+        - name: "dateFrom"
+          in: query
+          description: "Date from of date"
+          type: string
+          required: false
+        - name: "dateTo"
+          in: query
+          description: "Date to of date"
+          type: string
+          required: false
+      responses:
+        "200":
+          description: "Get clic history count successful"
+          schema:
+            $ref: "#/definitions/GetClickHistoryCount200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_DATE_FROM indicates that the "dateFrom" query param provided is invalid
+            INVALID_DATE_TO indicates that the "dateTo" query param provided is invalid
+          schema:
+            $ref: "#/definitions/GetClickHistoryCount400"
+            
+  /member/withdraw:
+    # Member withdraw api
+    post:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Member withdraw"
+      description: "Member withdraw"
+      operationId: "withdraw"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Withdraw request"
+          required: true
+          schema:
+            $ref: "#/definitions/WithdrawRequest"
+      responses:
+        "200":
+          description: "Withdraw successful"
+          schema:
+            $ref: "#/definitions/MemberWithdraw200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_PAYMENT_METHOD indicates that the payment method provided is invalid
+            NO_AVAILABLE_BALANCE indicates that the account blance isn't avaiable
+            INVALID_MOBILE_OTP indicates that the mobile otp provided is invalid
+            INVALID_AMOUNT indicates that the amount provided is invalid
+            MEMBER_NOT_REDEEM indicates that the member account isn't redeem
+            INVALID_PAYPAL indicates that the account paypal is invalid
+          schema:
+            $ref: "#/definitions/MemberWithdraw400"
+            
+  /member/change-password:
+    # Member change password
+    post:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Member change password"
+      description: "Member change password"
+      operationId: "changePassword"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Change password request"
+          required: true
+          schema:
+            $ref: "#/definitions/ChangePasswordRequest"
+      responses:
+        "200":
+          description: "Change password request successful"
+          schema:
+            $ref: "#/definitions/ChangePassword200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_PASSWORD indicates that the password provided is invalid
+            INVALID_MOBILE_OTP indicates that the mobile otp is invalid
+          schema:
+            $ref: "#/definitions/ChangePassword400"
+            
+  /member/close-account:
+    # Close account
+    delete: 
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Member close account"
+      description: "Member close account"
+      operationId: "closeAccount"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Close account successful"
+          schema:
+            $ref: "#/definitions/CloseAccount200"
+            
+  /member/paypal:
+    # Get paypal api
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Get paypal account"
+      description: "Get paypal account"
+      operationId: "getPaypal"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Get paypal successful"
+          schema:
+            $ref: "#/definitions/GetPaypal200"
+        "400":
+          description: |
+            NOT_FOUND indicates that the member paypal email stored or Member paypal account verified stored is not found
+          schema:
+            $ref: "#/definitions/GetPaypal400"
+    
+    # Delete paypal api
+    delete:
+      tags:
+      - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Delete paypal account"
+      description: "Delete paypal account"
+      operationId: "deletePaypal"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Delete paypal successful"
+          schema:
+            $ref: "#/definitions/DeletePaypal200"
+        "400":
+          description: |
+            NOT_FOUND indicates that the member paypal email stored is not found
+          schema:
+            $ref: "#/definitions/DeletePaypal400"
+            
+    # Post paypal api
+    post: 
+      tags:
+        - "Member"
+      security:
+        - Bearer: [ ]
+      summary: "Linked member paypal account"
+      description: "Linked member paypal account"
+      operationId: "linkedPaypal"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Linked member paypal account successful"
+          schema:
+            $ref: "#/definitions/LinkedPaypal200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            UNAUTHORIZED indicates that the paypal authorization code is unauthorized
+            DUPLICATED indicates that the paypal account is already associated to more than two accounts
+            UNVERIFIED_PAYPAL indicates that the paypal email hasn't not been verified
+          schema:
+            $ref: "#/definitions/LinkedPaypal400"
+   
+   # Paypal connect url api      
+  /member/paypal-connect-url:
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Paypal connect url"
+      description: "Init paypal connect url"
+      operationId: "getPaypalConnectUrl"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "redirectUri"
+          in: query
+          description: "Redirect uri"
+          required: true
+          type: string
+        - name: "state"
+          in: query
+          description: "State"
+          type: string
+          required: true
+          default: "cr-paypal-link"
+      responses:
+        "200":
+          description: "Get paypal connect url successful"
+          schema:
+            $ref: "#/definitions/GetPaypalConnectUrl200"
+        "400":
+          description: |
+            The status code:
+            INVALID_REDIRECT_URI indicates that the "redirectUri" query param provided is invalid
+          schema:
+            $ref: "#/definitions/GetPaypalConnectUrl400"
+                 
+  /member/verify-email:
+    # Verify email api 
+    post:
+      tags:
+        - "Member"
+      summary: "Verify email"
+      description: "Verify member email, update isValidated = true"
+      operationId: "verifyEmail"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Verify email request"
+          schema:
+            $ref: "#/definitions/VerifyEmailRequest"
+      responses:
+        "200":
+          description: "Verify email successful"
+          schema:
+            $ref: "#/definitions/VerifyEmail200"
+        "400":
+          description: |
+            The status code:
+            INVALID_EMAIL_VERIFICATION_CODE indicates that the email verification code provided is invalid
+          schema:
+            $ref: "#/definitions/VerifyEmail400"
+
+  /member/send-verification-email:
+    # Send verification email
+    get:
+      tags:
+        - "Member"
+      summary: "Send verification email"
+      description: "Send verification email"
+      operationId: "sendVerificationEmail"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Email verification sent successful"
+          schema:
+            $ref: "#/definitions/SendVerificationEmail200"
+        "400":
+          description: |
+            The status code:
+            VERIFIED_EMAIL indicates that the email is verified
+          schema:
+            $ref: "#/definitions/SendVerificationEmail400"
+            
+  /member/send-update-mobile-link:
+    # Send update mobile link api
+    get:
+      tags:
+        - "Member"
+      summary: "Send update mobile link"
+      description: "Send update mobile link"
+      operationId: "sendUpdateMobileLink"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Update mobile link sent successful"
+          schema:
+            $ref: "#/definitions/SendUpdateMobileLink200"
+            
+  /member/update-mobile-with-code:
+    # update mobile with code api
+    post:
+      tags:
+        - "Member"
+      summary: "Update mobile with code"
+      description: "Update mobile with code"
+      operationId: "updateMobileWithCode"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Update mobile with code request"
+          schema:
+            $ref: "#/definitions/UpdateMobileWithCodeRequest"
+      responses:
+        "200":
+          description: "Update mobile with code successful"
+          schema:
+            $ref: "#/definitions/UpdateMobileWithCode200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            EXPIRED_TOKEN indicates that the code provided is expired
+            INVALID_MOBILE_OTP indicates that the mobile otp is invalid
+            UNAUTHORIZED indicates that the the code provided is not match with code init from DB
+          schema:
+            $ref: "#/definitions/UpdateMobileWithCode400"
+  
+  /member/check-bsb:
+    # check bsb api
+    post:
+      tags:
+        - "Member"
+      summary: "Validate bank BSB number"
+      description: "Validate bank BSB number"
+      operationId: "checkBsb"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Check bsb request"
+          schema:
+            $ref: "#/definitions/CheckBsbRequest"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/CheckBsb200"
+        "400":
+          description: "Bsb is invalid"
+          schema:
+            $ref: "#/definitions/CheckBsb400"
+            
+  /member/notifier-status:
+    # notifier status api
+    patch:
+      tags:
+        - "Member"
+      summary: "Change install notifier status"
+      description: "Change install notifier status"
+      operationId: "notifierStatus"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Install notifier status request"
+          schema:
+            $ref: "#/definitions/NotifierStatusRequest"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/NotifierStatus200"
+        "400":
+          description: "Install notifier status is invalid"
+          schema:
+            $ref: "#/definitions/NotifierStatus400"
+            
+  /member/feedback:
+    # feedback api
+    post:
+      tags:
+        - "Member"
+      summary: "Send feedback email api"
+      description: "Send feedback email api"
+      operationId: "feedback"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Feedback request"
+          schema:
+            $ref: "#/definitions/FeedbackRequest"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/Feedback200"
+        "400":
+          description: |
+            An enumeration of the status codes
+            INVALID_FEEDBACK indicates that the feedback is expired
+            INVALID_APP_VERSION indicates that the app version is invalid
+            INVALID_DEVICE_MODEL indicates that the device model is invalid
+            INVALID_OPERATING_SYSTEM indicates that the operating system is invalid
+            INVALID_BUILD_NUMBER indicates that the build number is invalid
+          schema:
+            $ref: "#/definitions/Feedback400"
+  /member/favs:
+    # Get transactions api
+    get:
+      tags:
+        - "Member"
+      security:
+        - Bearer: []
+      summary: "Get favourites"
+      description: "Get favourites"
+      operationId: "getfavourites"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Return a list of favs"
+
+  /member/fav:
+    # fav api
+    post:
+      tags:
+        - "Member"
+      summary: "Add merchant to favourites"
+      description: "add merchant to favourites"
+      operationId: "fav"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Add to favourites request"
+          schema:
+            $ref: "#/definitions/FavRequest"
+      responses:
+        "200":
+          description: "Added to favourites"
+        "400":
+          description: |
+            status codes
+            INVALID_REQUEST Bad request
+    delete:
+      tags:
+        - "Member"
+      summary: "Remove merchant from favourites"
+      description: "Remove merchant from favourites"
+      operationId: "deletefav"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Remove from favourites request"
+          schema:
+            $ref: "#/definitions/FavRequest"
+      responses:
+        "200":
+          description: "Removed from favourites"
+        "400":
+          description: |
+            status codes
+            INVALID_REQUEST Bad request
+     
+
+definitions:
+  Member:
+    required:
+    - newMemberId
+    - name
+    - lastName
+    - balance
+    - memberId
+    - email
+    - isRisky
+    - lifetimeRewards
+    - mobile
+    - gender
+    - daysFromJoined
+    - comment
+    - clientId
+    - installNotifier
+    properties:
+      balance:
+          type: number
+      clientId:
+          type: integer
+      comment:
+          type: string
+      daysFromJoined:
+          type: integer
+      email:
+          type: string
+      gender:
+          type: string
+      isRisky:
+          type: integer
+      lastName:
+          type: string
+      lifetimeRewards:
+          type: number
+      memberId:
+          type: integer
+      mobile:
+          type: string
+      name:
+          type: string
+      newMemberId:
+          type: string
+      installNotifier:
+        type: integer
+      welComeBonus:
+          type: object
+          properties:
+            amount:
+                type: number
+            isRedeemed:
+                type: boolean
+    title: Member
+    type: object
+  
+  # For update member details api
+  UpdateMemberDetails200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Member details has been updated"
+
+  UpdateMemberDetails400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "DATE_OF_BIRTH"
+      message:
+        type: string
+        example: "Date of birth is invalid"
+
+  UpdateMemberDetailsRequest:
+    type: object
+    required:
+      - "mobileOtp"
+    properties:
+      firstName:
+        type: string
+        example: "John"
+      lastName:
+        type: string
+        example: "Smith"
+      dateOfBirth:
+        type: string
+        example: "1993-05-05"
+      gender:
+        type: string
+        example: "Male"
+      postcode:
+        type: string
+        example: "3000"
+      mobileOtp:
+        type: string
+        example: "123456"
+  
+  # For update mobile api
+  UpdateMobile200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Mobile has been updated"
+
+  UpdateMobile400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_MOBILE"
+      message:
+        type: string
+        example: "Mobile is invalid"
+  
+  UpdateMobileNumberRequest:
+    type: object
+    required:
+      - "mobileNumber"
+      - "mobileOtp"
+    properties:
+      mobileNumber:
+        type: string
+      mobileOtp:
+        type: string
+    example:
+      mobileNumber: "+64111111111"
+      mobileOtp: "123456"
+  
+  # For update email api
+  UpdateEmail200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Email has been updated"
+
+  UpdateEmail400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_EMAIL"
+      message:
+        type: string
+        example: "Email is invalid"
+
+  UpdateEmailRequest:
+    type: object
+    required:
+      - "email"
+      - "mobileOtp"
+    properties:
+      email:
+        type: string
+        example: "foo@example.com"
+      mobileOtp:
+        type: string
+        example: "123456"
+        
+  # For get transactions api
+  GetTransactions200:
+    type: object
+    properties:
+      data:
+        type: array
+        items: 
+          properties:
+            transactionId:
+              type: integer
+            saleDate:
+              type: string
+            transactionName:
+              type: string
+            amount:
+              type: number
+            currency:
+              type: string
+            commission:
+              type: number
+            status:
+              type: string
+            transactionType:
+              type: string
+            estimatedApprovalDate:
+              type: string
+            isConsumption:
+              type: boolean
+            merchantLogoUrl:
+              type: string
+            networkId:
+              type: integer
+  GetTransactions400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_DATE_FROM"
+      message:
+        type: string
+        example: "Date from is invalid" 
+
+  GetTransactionsCount200:
+    type: object
+    properties:
+      totalCount:
+        type: integer
+  
+  GetTransactionsCount400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_DATE_FROM"
+      message:
+        type: string
+        example: "Date from is invalid"
+        
+  # For update member bank account api
+  UpdateBankAccount200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Member bank account has been updated"
+
+  UpdateBankAccount400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_BSB"
+      message:
+        type: string
+        example: "Bsb is invalid"
+
+  MemberBankAccountRequest:
+    type: object
+    required:
+      - "accountName"
+      - "bsb"
+      - "accountNumber"
+    properties:
+      accountName:
+        type: string
+        example: "foo"
+      bsb:
+        type: string
+        example: "12345"
+      accountNumber:
+        type: string
+        example: "123456789"
+
+  # For get member bank account api
+  GetBankAccount200:
+    type: object
+    properties:
+      accountName:
+        type: string
+        example: "foo"
+      bsb:
+        type: string
+        example: "12345"
+      accountNumber:
+        type: string
+        example: "123456789"
+
+  GetBankAccount400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        default: "NOT_FOUND"
+      message:
+        type: string
+        example: "Member bank account not found"
+      
+  # For disconnect member bank account api
+  DisconnectBankAccount200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "DELETED"
+      message:
+        type: string
+        default: "Your bank account has bean disconnected"
+
+  DisconnectBankAccount400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        default: "NOT_FOUND"
+      message:
+        type: string
+        example: "Member bank account not found"
+        
+  # For update marketing-ref api
+  UpdateMemberSubscribeNewsletters200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Subscribe newsletters has been updated"
+
+  MemberSubscribeNewslettersRequest:
+    type: object
+    required:
+      - "subscribeNewsletters"
+    properties:
+      subscribeNewsletters:
+        type: boolean
+        example: true
+        
+  # For get marketing-ref api
+  GetMemberSubscribeNewsletters200:
+    type: object
+    properties:
+      subscribeNewsletters:
+        type: boolean
+        example: true
+        
+  # For send otp api
+  SendMobileOtp200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "SENT"
+      message:
+        type: string
+        example: "The verification code has been sent to +64 111111111"
+        
+  # For get transactions api
+  GetClickHistory200:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          properties:
+            clickId:
+              type: number
+            date:
+              type: string
+            store:
+              type: string
+            regularImageUrl:
+              type: string
+  GetClickHistory400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_DATE_FROM"
+      message:
+        type: string
+        example: "Date from is invalid"
+
+  GetClickHistoryCount200:
+    type: object
+    properties:
+      totalCount:
+        type: integer
+
+  GetClickHistoryCount400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_DATE_FROM"
+      message:
+        type: string
+        example: "Date from is invalid"
+        
+  # For withdraw api
+  MemberWithdraw200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "INSERTED"
+      message:
+        type: string
+        default: "You withdraw successful"
+
+  MemberWithdraw400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_PAYMENT_METHOD"
+      message:
+        type: string
+        example: "Payment method is invalid"
+        
+  WithdrawRequest:
+    type: object
+    properties:
+      amount:
+        type: number
+      paymentMethod:
+        type: string
+      mobileOtp:
+        type: string
+
+  # For change password api
+  ChangePassword200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Password has bean updated"
+
+  ChangePassword400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_PASSWORD"
+      message:
+        type: string
+        example: "Password is invalid"
+
+  ChangePasswordRequest:
+    type: object
+    properties:
+      newPassword:
+        type: string
+        example: "foo&&12345"
+      mobileOtp:
+        type: string
+        example: "12345"
+        
+  # For close account api
+  CloseAccount200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "DELETED"
+      message:
+        type: string
+        default: "Your account has bean closed"
+  
+  # For get paypal api
+  GetPaypal200:
+    type: object
+    properties:
+      paypalEmail:
+        type: string
+        example: "foo@example.com"
+        
+  GetPaypal400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        default: "NOT_FOUND"
+      message:
+        type: string
+        example: "Member paypal email not found"
+        
+  # For delete paypal api
+  DeletePaypal200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "DELETED"
+      message:
+        type: string
+        default: "Your paypal account has bean unlinked"
+
+  DeletePaypal400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        default: "NOT_FOUND"
+      message:
+        type: string
+        example: "Member paypal email not found"
+        
+  # For linked paypal api    
+  LinkedPaypal200:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 200
+      status:
+        type: string
+        default: "LINKED_PAYPAL"
+      message:
+        type: string
+        default: "Your paypal account has bean linked"
+
+  LinkedPaypal400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "UNAUTHORIZED"
+      message:
+        type: string
+        example: "Paypal authorization code is invalid"
+        
+  # For paypal connect url api    
+  GetPaypalConnectUrl200:
+    type: object
+    properties:
+      paypalConnectUrl:
+        type: string
+
+  GetPaypalConnectUrl400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_REDIRECT_URI"
+      message:
+        type: string
+        example: "Uri is invalid"
+        
+  # For verify email api    
+  VerifyEmail200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "VERIFIED_EMAIL"
+      message:
+        type: string
+        example: "foo@example.com"
+
+  VerifyEmail400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_EMAIL_VERIFICATION_CODE"
+      message:
+        type: string
+        example: "Email verification code is invalid"
+
+  VerifyEmailRequest:
+    type: object
+    properties: 
+      code:
+        type: string
+  # For send verification email api    
+  SendVerificationEmail200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "SENT"
+      message:
+        type: string
+        default: "The verification email has been sent"
+
+  SendVerificationEmail400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "VERIFIED_EMAIL"
+      message:
+        type: string
+        example: "Your email has been verified"
+  
+  # For send update mobile link api   
+  SendUpdateMobileLink200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "SENT"
+      message:
+        type: string
+        default: "The orphan mobile updating email has been sent"
+        
+  # For update mobile with code api    
+  UpdateMobileWithCode200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Your mobile has been updated"
+
+  UpdateMobileWithCode400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "EXPIRED_TOKEN"
+      message:
+        type: string
+        example: "Token has been expired"
+        
+  UpdateMobileWithCodeRequest:
+    type: object
+    properties: 
+      code:
+        type: string
+      mobile:
+        type: string
+        
+  # For check bsb api 
+  CheckBsb200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "VALID_BSB"
+      message:
+        type: string
+        default: "Ok"
+
+  CheckBsb400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        example: "INVALID_BSB"
+      message:
+        type: string
+        example: "Bsb is invalid"
+
+  CheckBsbRequest:
+    type: object
+    properties:
+      bsb:
+        type: string
+        
+  # For notifier status api
+  NotifierStatus200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "UPDATED"
+      message:
+        type: string
+        default: "Notifier status has been changed"
+
+  NotifierStatus400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        default: "INVALID_STATUS"
+      message:
+        type: string
+        default: "Install notifier status is invalid"
+
+  NotifierStatusRequest:
+    type: object
+    properties:
+      status:
+        type: boolean
+        
+  # For feedback api
+  Feedback200:
+    type: object
+    properties:
+      code:
+        type: integer
+        default: 200
+      status:
+        type: string
+        default: "SENT"
+      message:
+        type: string
+        default: "The feedback email has been sent"
+
+  Feedback400:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 400
+      status:
+        type: string
+        default: "INVALID_FEEDBACK"
+      message:
+        type: string
+        default: "Feedback is invalid"
+
+  FeedbackRequest:
+    type: object
+    properties:
+      feedback:
+        type: string
+      appVersion:
+        type: string
+      deviceModel:
+        type: string
+      operatingSystem:
+        type: string
+      buildNumber:
+        type: string
+  FavRequest:
+    type: object
+    properties:
+      merchantId:
+        type: integer

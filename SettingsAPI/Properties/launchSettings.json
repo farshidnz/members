@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SettingsAPI.Web": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "APP_ENV": "dev"
+      }
+    }
+  }
+}

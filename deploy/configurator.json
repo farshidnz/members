@@ -1,0 +1,662 @@
+[
+    {
+        "Key": "TwilioAccountSid",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "ACf7134c18b2732e074ae39046b5bda745"
+            }
+        ]
+    },
+    {
+        "Key": "AuthToken",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:AuthToken}"
+            }
+        ]
+    },
+    {
+        "Key": "AzureAADClientId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:AzureAADClientId}"
+            }
+        ]
+    },
+    {
+        "Key": "AzureAADClientSecret",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:AzureAADClientSecret}"
+            }
+        ]
+    },
+    {
+        "Key": "BsbBucketName",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "cashrewards.dev.hub-pages"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "cashrewards.prod.hub-pages"
+            }
+        ]
+    },
+    {
+        "Key": "BsbKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "BSBDirectory.csv"
+            }
+        ]
+    },
+    {
+        "Key": "CognitoQueueARN",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "arn:aws:sqs:ap-southeast-2:752830773963:Cognito-member_update_event-stg"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "arn:aws:sqs:ap-southeast-2:356724879491:Cognito-member_update_event-prd"
+            }
+        ]
+    },
+    {
+        "Key": "CognitoQueueName",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "Cognito-member_update_event-stg"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "Cognito-member_update_event-prd"
+            }
+        ]
+    },
+    {
+        "Key": "CognitoTokenIssuerEndpoint",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_9q6TXai99/.well-known/jwks.json"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_vq7sN11Cr/.well-known/jwks.json"
+            }
+        ]
+    },
+    {
+        "Key": "ConnectionArn",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "arn:aws:codestar-connections:ap-southeast-2:752830773963:connection/f13f424d-6d35-4333-b517-8c635a8c16b5"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "arn:aws:codestar-connections:ap-southeast-2:356724879491:connection/ae225242-907f-4bed-abe9-b1ac2e97521e"
+            }
+        ]
+    },
+    {
+        "Key": "CorsAllowDomain",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://uat.cashrewards.com.au,https://test1.cashrewards.com.au,https://test7.cashrewards.com.au,http://localhost:3000,http://localhost:4200,http://localhost:4000,https://pluto.cashrewards.com.au"
+            },
+            {
+                "Scope": "prelive",
+                "Value": "https://prelive.cashrewards.com.au,https://help.cashrewards.com.au,https://energy-compare.cashrewards.com.au,http://localhost:4000"
+            },
+            {
+                "Scope": "live",
+                "Value": "https://www.cashrewards.com.au,https://test1.cashrewards.com.au,https://energy-compare.cashrewards.com.au"
+            }
+        ]
+    },
+    {
+        "Key": "DbConnectionString",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:DbConnectionString}"
+            }
+        ]
+    },
+    {
+        "Key": "EmailFeedbackToCashrewards",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "ailey.lesneva@cashrewards.com"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "app.feedback@cashrewards.com"
+            }
+        ]
+    },
+    {
+        "Key": "FeedbackToCashrewardsId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "feedback-2-cashrewards"
+            }
+        ]
+    },
+    {
+        "Key": "FeedbackToCustomerId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "feedback-2-customer"
+            }
+        ]
+    },
+    {
+        "Key": "FreshdeskApiKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "ZHFoYojJcmoQz2qk9uun"
+            }
+        ]
+    },
+    {
+        "Key": "FreshdeskDomain",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "cashrewards"
+            }
+        ]
+    },
+    {
+        "Key": "LeanplumAppId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "app_MIlKO1FHZ5tsrPjvekFmPIgQLW4MQYNbYaKZDqsQios"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "app_t2ZCLWy1QJ7Bnj4J5fO0Nqe9aPHZEwMTBpEETM7fzi0"
+            }
+        ]
+    },
+    {
+        "Key": "LeanplumClientKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "crw_WaMXPM8a1CJr8vNRX8XLwKGwREMbSk0kRHHUp7ybLBk"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "crw_zvHg5G830bJnWe7UwDrVrbolt7cNzNyu0XkUSTSLOdo"
+            }
+        ]
+    },
+    {
+        "Key": "MandrillApiEndpoint",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://mandrillapp.com/api/1.0"
+            }
+        ]
+    },
+    {
+        "Key": "MandrillEmailAfterWithdrawSuccessId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "withdraw-success"
+            }
+        ]
+    },
+    {
+        "Key": "MandrillEmailOrphanMobileUpdateTemplateId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "cr-orphan-mobile"
+            }
+        ]
+    },
+    {
+        "Key": "MandrillEmailPasswordUpdateTemplateId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "CR-Password-Updated"
+            }
+        ]
+    },
+    {
+        "Key": "MandrillEmailVerificationTemplateId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "cr-verification"
+            }
+        ]
+    },
+    {
+        "Key": "MandrillKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:MandrillKey}"
+            }
+        ]
+    },
+    {
+        "Key": "MaxRedemptionAmount",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "5000"
+            }
+        ]
+    },
+    {
+        "Key": "MemberCreatedQueueName",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "MemberSettingsAPI-dev-MemberCreatedEventQueue"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "MemberSettingsAPI-prod-MemberCreatedEventQueue"
+            }
+        ]
+    },
+    {
+        "Key": "MinRedemptionAmount",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "10.01"
+            }
+        ]
+    },
+    {
+        "Key": "OptimiseSmsOptOutKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:OptimiseSmsOptOutKey}"
+            }
+        ]
+    },
+    {
+        "Key": "OtpWhitelist",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "+61 435757078, +61 458321100"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "+61 xxxxxxxxx"
+            }
+        ]
+    },
+    {
+        "Key": "SkipOtp",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "true"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "false"
+            }
+        ]
+    },
+    {
+        "Key": "PathServiceSId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "VA7685c306efea5a41a5f93192914bfdcf"
+            }
+        ]
+    },
+    {
+        "Key": "PaypalClientId",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "Aabtpz5sQDmaxkUf4Cl_sJxrUPO05xdOeS7Tt-ld9ucDwyU0tsw1FWUhJlHX8lwuw1sfMbDPauO0nW2w"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "AatXols-Yv8IfVXNUPUTpcdY5OwcMELfXXhG48IUYFxKkvzs50qX62h5TVv9xYh6JJvtHUHcI7yfXgFA"
+            }
+        ]
+    },
+    {
+        "Key": "PaypalClientSecret",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:PaypalClientSecret}"
+            }
+        ]
+    },
+    {
+        "Key": "PaypalConnectUrlEndpoint",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://www.sandbox.paypal.com/connect/"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "https://www.paypal.com/connect/"
+            }
+        ]
+    },
+    {
+        "Key": "PaypalScope",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "openid email https://uri.paypal.com/services/paypalattributes"
+            }
+        ]
+    },
+    {
+        "Key": "PaypalTokenService",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://api.sandbox.paypal.com/v1/oauth2/token"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "https://api.paypal.com/v1/oauth2/token"
+            }
+        ]
+    },
+    {
+        "Key": "PaypalUserInfo",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://api.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "https://api.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1"
+            }
+        ]
+    },
+    {
+        "Key": "RedisMasters",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "cluster.jbglup.clustercfg.apse2.cache.amazonaws.com"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "cluster-maz.wfy93b.clustercfg.apse2.cache.amazonaws.com"
+            }
+        ]
+    },
+    {
+        "Key": "SaltKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "SMYO0NSn076tkbZa3fzq"
+            }
+        ]
+    },
+    {
+        "Key": "StsTokenIssuerEndpoint",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://test-sts.cashrewards.com.au/stg/.well-known/jwks"
+            },
+            {
+                "Scope": "prelive",
+                "Value": "https://sts.cashrewards.com.au/prd/.well-known/jwks"
+            }
+        ]
+    },
+    {
+        "Key": "TopicArnMemberCreatedEvent",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "arn:aws:sns:ap-southeast-2:752830773963:Pangu_N_STG_MemberCreate"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "arn:aws:sns:ap-southeast-2:356724879491:Pangu_N_Prod_MemberCreate"
+            }
+        ]
+    },
+    {
+        "Key": "TopicArnMemberUpdatedEvent",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "arn:aws:sns:ap-southeast-2:752830773963:Pangu_N_STG_MemberUpdate"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "arn:aws:sns:ap-southeast-2:356724879491:Pangu_N_Prod_MemberUpdate"
+            }
+        ]
+    },
+    {
+        "Key": "WebsiteDomainUrl",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://${PublicWebsiteDomain}"
+            }
+        ]
+    },
+    {
+        "Key": "Devops4Enabled",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "true"
+            }
+        ]
+    },
+    {
+        "Key": "ShopGoDBUser",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "AppUsr"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "service.membersettingsapi"
+            }
+        ]
+    },
+    {
+        "Key": "ShopGoDBPassword",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:ShopGoDBPassword}"
+            }
+        ]
+    },
+    {
+        "Key": "SendVerificationEmail",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "false"
+            },
+            {
+                "Scope": "uat|live",
+                "Value": "true"
+            }
+        ]
+    },
+    {
+        "Key": "AlternateDNS",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "member-api.stg.cashrewards.com.au"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "member-api.cashrewards.com.au"
+            }
+        ]
+    },
+    {
+        "Key": "ScalingMinCapacity",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": 1
+            },
+            {
+                "Scope": "live",
+                "Value": 10
+            }
+        ]
+    },
+    {
+        "Key": "ScalingMaxCapacity",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": 2
+            },
+            {
+                "Scope": "live",
+                "Value": 10
+            }
+        ]
+    },
+    {
+        "Key": "ScalingDesiredCount",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": 1
+            },
+            {
+                "Scope": "live",
+                "Value": 10
+            }
+        ]
+    },
+    {
+        "Key": "cpu",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": 1024
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": 2048
+            }
+        ]
+    },
+    {
+        "Key": "memoryLimitMiB",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": 2048
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": 4096
+            }
+        ]
+    },
+    {
+        "Key": "UnleashAppName",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "MemberSettingsApi"
+            }
+        ]
+    },
+    {
+        "Key": "UnleashApi",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "https://app.unleash-hosted.com/cerise/api/"
+            }
+        ]
+    },
+    {
+        "Key": "UnleashEnvironment",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "development"
+            },
+            {
+                "Scope": "prelive|live",
+                "Value": "production"
+            }
+        ]
+    },
+    {
+        "Key": "UnleashFetchTogglesIntervalMin",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": 1
+            }
+        ]
+    },
+    {
+        "Key": "UnleashApiKey",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:UnleashApiKey}"
+            }
+        ]
+    },
+    {
+        "Key": "AskNicelySecret",
+        "Values": [
+            {
+                "Scope": "*",
+                "Value": "${Secret:AskNicelySecret}"
+            }
+        ]
+    }
+]

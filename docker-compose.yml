@@ -1,0 +1,7 @@
+unit-test:
+  container_name: MemberSettings-unit-test
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  command: sh /app/run-unit-test.sh "${CURRENT_UID}"
+  working_dir: /app
+  volumes:
+  - ./:/app
